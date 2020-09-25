@@ -1,7 +1,7 @@
 client/.DS_Store
 client/node_modules
 /client/dist
-
+/backend/config.py
 
 # local env files
 .env.local
@@ -21,3 +21,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*/__pycache__/*
