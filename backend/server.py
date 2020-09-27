@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, send_from_directory
 from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 
 app = Flask(__name__)
@@ -15,6 +15,9 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"      # !! Only in development
 
 discord = DiscordOAuth2Session(app)
 
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
 
 @app.route("/login/")
 def login():
@@ -30,19 +33,19 @@ def callback():
 @app.errorhandler(Unauthorized)
 def redirect_unauthorized(e):
     return redirect(url_for("login"))
-
 	
 @app.route("/me/")
-#@requires_authorization
+@requires_authorization
 def me():
     user = discord.fetch_user()
-    print("ASDASDASDD")
+
     return f"""
     <html>
         <head>
             <title>{user.name}</title>
         </head>
         <body>
+            <script src="/static/index-bundle.js"></script>
             <img src='{user.avatar_url}' />
         </body>
     </html>"""
