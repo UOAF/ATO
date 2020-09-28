@@ -40,12 +40,23 @@ def me():
     user = discord.fetch_user()
 
     return f"""
+    <!DOCTYPE html>
+    <html lang="en">
     <html>
         <head>
             <title>{user.name}</title>
         </head>
         <body>
-            <script src="/static/index-bundle.js"></script>
+            <div id="app">
+                <div class="container">
+                    <div class="row my-5 justify-content-center">
+                        <div class="col-sm-6">
+                            <h1 class="text-center">{{{{ message }}}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="/static/app.min.js"></script>
             <img src='{user.avatar_url}' />
         </body>
     </html>"""
