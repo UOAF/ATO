@@ -39,11 +39,6 @@ module.exports = {
     },
     plugins: [
         new HotModuleReplacementPlugin(),
-        new VueLoaderPlugin(),
-        new HTMLWebpackPlugin({
-            showErrors: true,
-            cache: true,
-            template: join(__dirname, 'client', 'index.html')
-        })
+        new VueLoaderPlugin()
     ]
 };
