@@ -12,6 +12,7 @@
   "devDependencies": {
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
@@ -26,6 +27,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
+    "core-js": "^3.6.5",
+    "regenerator-runtime": "^0.13.7",
     "vue": "^2.6.12"
   }
 }
