@@ -2,12 +2,11 @@ const { join } = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const { HotModuleReplacementPlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-// const path = require('path');
 
 module.exports = {
-    entry: join(__dirname, 'client', 'app.js'), 
+    entry: join(__dirname, 'src', 'app.js'), 
     output: {
-        path: join(__dirname, 'backend', 'static'), 
+        path: join(__dirname, '..', 'backend', 'static'), 
         filename: 'app.min.js'
     },
     module: {
