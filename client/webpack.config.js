@@ -9,6 +9,7 @@ module.exports = {
         path: join(__dirname, '..', 'backend', 'static'),
         filename: 'app.min.js'
     },
+    watch: false,
     module: {
         rules: [
             {

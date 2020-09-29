@@ -1,9 +1,12 @@
 <template>
-    <h2 class="text-center">Hello From Component</h2>
+    <discord-user-info />
 </template>
 
 <script>
+import DiscordComponent from './DiscordComponent.vue'
 export default {
-    
+    components: {
+        'discord-user-info': DiscordComponent
+    }    
 }
 </script>
