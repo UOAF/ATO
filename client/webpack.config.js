@@ -4,9 +4,9 @@ const { HotModuleReplacementPlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: join(__dirname, 'src', 'app.js'), 
+    entry: join(__dirname, 'src', 'app.ts'),
     output: {
-        path: join(__dirname, '..', 'backend', 'static'), 
+        path: join(__dirname, '..', 'backend', 'static'),
         filename: 'app.min.js'
     },
     module: {
@@ -18,21 +18,29 @@ module.exports = {
                     presets: ['@babel/preset-env']
                 }
             }, {
-                test: /.vue$/, 
+                test: /.vue$/,
                 loader: 'vue-loader'
             },
             {
-                test: /\.css$/, 
+                test: /\.css$/,
                 use: [
                     'vue-style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                }
             }
         ]
     },
     resolve: {
         alias: {
-          'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js'
         },
         extensions: ['*', '.js', '.vue', '.json']
     },
