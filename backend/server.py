@@ -52,6 +52,7 @@ def me():
                     <div class="row my-5 justify-content-center">
                         <div class="col-sm-6">
                             <h1 class="text-center">{{{{ message }}}}</h1>
+                            <hello-component />
                         </div>
                     </div>
                 </div>
