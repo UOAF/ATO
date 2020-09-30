@@ -34,8 +34,8 @@ new Vue({
 var obj = 
 (
     {
-        "EventName": "Test Event 5",
-        "ShortDescription": "Does this thing even work?",
+        "EventName": "Test Event 1",
+        "ShortDescription": "UPDATE EVENT TEST",
         "MissionDescription": "We are testing shit. And mostly breaking shit.",
         "Date": "2012-04-23",
         "StartTime": "1800Z",
@@ -117,7 +117,7 @@ var obj =
     }
 );
 var json = JSON.stringify(obj);
-fetch('/putEvent', {
+fetch('/updateEvent', {
 	method: 'PUT',
 	body: json, // The data
 	headers: {
