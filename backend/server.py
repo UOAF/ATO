@@ -1,7 +1,12 @@
 import os
 
-from flask import Flask, redirect, url_for, send_from_directory, send_file
+from flask import Flask, redirect, url_for, send_from_directory, send_file, request
 from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+from tinydb import TinyDB, Query
+
+dbFile = os.path.join(os.path.dirname(__file__), 'db.json')
+db = TinyDB(dbFile)
+#events = db.table('Events')
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -37,6 +42,28 @@ def callback():
 def redirect_unauthorized(e):
     return redirect(url_for("login"))
 
+@app.route("/getEvents/")
+@requires_authorization
+def getEvents():
+    eventTable = db.table('Events')
+    eventsList = eventTable.all()
+    return {'events': eventsList}
+
+@app.route("/getLatestEvents/")
+@requires_authorization
+def getLatestEvents():
+    eventTable = db.table('Events')
+    eventsList = eventTable.all()
+    return {'events': eventsList[-4:]}
+
+@app.route("/putEvent/",methods=["PUT"])
+@requires_authorization
+def putEvent():
+    events = db.table('Events')
+    data_as_json = request.get_json()
+    events.insert(data_as_json)
+    return data_as_json
+
 @app.route("/user/")
 @requires_authorization
 def get_user_info():
@@ -46,7 +73,6 @@ def get_user_info():
         'avatar_url': user.avatar_url,
         'id': user.id
     }
-
 
 @app.route("/")
 @requires_authorization
