@@ -62,11 +62,10 @@ def getLatestEvents():
 def updateEvent():
     eventUpdate = request.json
     eventName = eventUpdate["EventName"]
-
     eventsTable = db.table('Events')
     dbQuery = Query()
     eventToUpdate = eventsTable.search(dbQuery.EventName == eventName)[0]
-    eventsTable.insert(eventUpdate)
+    #eventsTable.insert(eventUpdate)
     #data_as_json = request.get_json()
     #events.insert(data_as_json)
     return {}
@@ -76,6 +75,12 @@ def updateEvent():
 def putEvent():
     events = db.table('Events')
     data_as_json = request.get_json()
+    eventName = data_as_json["EventName"]
+    dbQuery = Query()
+    checkEventName = events.search(dbQuery.EventName == eventName)
+    if (len (checkEventName) > 0):
+        print (f"ERROR: {eventName} already found, not inserting.")
+        return (f"ERROR: {eventName} already found, not inserting")
     events.insert(data_as_json)
     return data_as_json
 
