@@ -1,12 +1,13 @@
 import os
+import json
 
 from flask import Flask, redirect, url_for, send_from_directory, send_file, request
 from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 
 dbFile = os.path.join(os.path.dirname(__file__), 'db.json')
 db = TinyDB(dbFile)
-#events = db.table('Events')
+
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -56,11 +57,30 @@ def getLatestEvents():
     eventsList = eventTable.all()
     return {'events': eventsList[-4:]}
 
+@app.route("/updateEvent/",methods=["PUT"])
+@requires_authorization
+def updateEvent():
+    eventUpdate = request.json
+    eventName = eventUpdate["EventName"]
+    eventsTable = db.table('Events')
+    dbQuery = Query()
+    eventToUpdate = eventsTable.search(dbQuery.EventName == eventName)[0]
+    #eventsTable.insert(eventUpdate)
+    #data_as_json = request.get_json()
+    #events.insert(data_as_json)
+    return {}
+
 @app.route("/putEvent/",methods=["PUT"])
 @requires_authorization
 def putEvent():
     events = db.table('Events')
     data_as_json = request.get_json()
+    eventName = data_as_json["EventName"]
+    dbQuery = Query()
+    checkEventName = events.search(dbQuery.EventName == eventName)
+    if (len (checkEventName) > 0):
+        print (f"ERROR: {eventName} already found, not inserting.")
+        return (f"ERROR: {eventName} already found, not inserting")
     events.insert(data_as_json)
     return data_as_json
 
