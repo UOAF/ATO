@@ -1,9 +1,11 @@
 import os
 import json
 
-from flask import Flask, redirect, url_for, send_from_directory, send_file, request
+from flask import Flask, redirect, url_for, send_from_directory, send_file, request, render_template
 from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 from tinydb import TinyDB, Query, where
+
+from .util import requires_membership, MissingMembership
 
 dbFile = os.path.join(os.path.dirname(__file__), 'db.json')
 db = TinyDB(dbFile)
@@ -21,6 +23,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 # app.config["DISCORD_BOT_TOKEN"] = ""                    # Required to access BOT resources.
 
 discord = DiscordOAuth2Session(app)
+UOAF_GUILD_ID = 582602200619024406
 
 
 @app.route('/static/<path:path>')
@@ -43,22 +46,30 @@ def callback():
 def redirect_unauthorized(e):
     return redirect(url_for("login"))
 
+
+@app.errorhandler(MissingMembership)
+def render_missing_membership(e):
+    return render_template('unauthorized.html'), 401
+
+
 @app.route("/getEvents/")
-@requires_authorization
+@requires_membership(UOAF_GUILD_ID)
 def getEvents():
     eventTable = db.table('Events')
     eventsList = eventTable.all()
     return {'events': eventsList}
 
+
 @app.route("/getLatestEvents/")
-@requires_authorization
+@requires_membership(UOAF_GUILD_ID)
 def getLatestEvents():
     eventTable = db.table('Events')
     eventsList = eventTable.all()
     return {'events': eventsList[-4:]}
 
-@app.route("/updateEvent/",methods=["PUT"])
-@requires_authorization
+
+@app.route("/updateEvent/", methods=["PUT"])
+@requires_membership(UOAF_GUILD_ID)
 def updateEvent():
     eventUpdate = request.json
     eventName = eventUpdate["EventName"]
@@ -70,29 +81,33 @@ def updateEvent():
     #events.insert(data_as_json)
     return {}
 
-@app.route("/putEvent/",methods=["PUT"])
-@requires_authorization
+
+@app.route("/putEvent/", methods=["PUT"])
+@requires_membership(UOAF_GUILD_ID)
 def putEvent():
     events = db.table('Events')
     data_as_json = request.get_json()
     eventName = data_as_json["EventName"]
     dbQuery = Query()
     checkEventName = events.search(dbQuery.EventName == eventName)
-    if (len (checkEventName) > 0):
-        print (f"ERROR: {eventName} already found, not inserting.")
+    if (len(checkEventName) > 0):
+        print(f"ERROR: {eventName} already found, not inserting.")
         return (f"ERROR: {eventName} already found, not inserting")
     events.insert(data_as_json)
     return data_as_json
 
+
 @app.route("/user/")
-@requires_authorization
+@requires_membership(UOAF_GUILD_ID)
 def get_user_info():
     user = discord.fetch_user()
+
     return {
         'username': user.name,
         'avatar_url': user.avatar_url,
         'id': user.id
     }
+
 
 @app.route("/")
 @requires_authorization
