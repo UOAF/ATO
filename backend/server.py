@@ -9,6 +9,7 @@ from bot import Bot
 
 from util import requires_membership, MissingMembership
 
+import functools
 import asyncio
 
 import logging
@@ -48,7 +49,24 @@ def create_app(config_file_name='config.py'):
         logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
     app.secret_key = b"random bytes representing Quart secret key"
+    
+    def requires_role(role_name):
+        def decorator(view_func):
+            @functools.wraps(view_func)
+            async def wrapper(*args, **kwargs):
+                if not await discord_auth.authorized():
+                    raise Unauthorized()
+                user = await discord_auth.fetch_user()
+                roles = bot.get_roles_of_user(user.id)
+                role_names = [r.name for r in roles]
+                if role_name not in role_names:
+                    raise MissingMembership()
+                else:
+                    return await view_func(*args, **kwargs)
+            return wrapper
+        return decorator
 
+            
     @app.before_serving
     async def startup():
         asyncio.create_task(bot.run())
@@ -125,11 +143,23 @@ def create_app(config_file_name='config.py'):
     @requires_membership
     async def get_user_info():
         user = await discord_auth.fetch_user()
+        roles = bot.get_roles_of_user(user.id)
         return {
             'username': user.name,
             'avatar_url': user.avatar_url,
-            'id': user.id
+            'id': user.id,
+            'roles': [r.name for r in roles]
         }
+
+    @app.route("/admin_test")
+    @requires_role('Roster')
+    async def admin_test():
+        return "You are an admin!!!"
+
+    @app.route("/admin_test_negative")
+    @requires_role('Rooster')
+    async def admin_test_negative():
+        return "You are an admin!!!"
 
     @app.route("/")
     @requires_authorization

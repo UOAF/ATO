@@ -3,6 +3,7 @@ import discord
 import os
 import os.path
 import json
+from cachetools import LRUCache, cached
 
 import asyncio
 
@@ -35,6 +36,7 @@ class Bot(object):
     def get_user_by_id(self, user_id):
         return self.client.get_user(user_id)
     
+    @cached(cache=LRUCache(maxsize=100))
     def get_roles_of_user(self, user_id):
         guild = self.client.get_guild(self.guild_id)
         member = guild.get_member(user_id)
