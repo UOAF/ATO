@@ -62,6 +62,11 @@ def create_app(config_file_name='config.py'):
         result = await discord_auth.create_session()
         return result
 
+    @app.route("/logout/")
+    async def logout():
+        discord_auth.revoke()
+        return redirect("/")
+
     @app.route("/callback/")
     async def callback():
         await discord_auth.callback()
