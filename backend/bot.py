@@ -6,26 +6,17 @@ import json
 
 import asyncio
 
-
 def get_mod_path():
     filepath = os.path.abspath(__file__)
     dirname, fname = os.path.split(filepath)
     return dirname
 
 class Bot(object):
-    def __init__(self):
+    def __init__(self, guild_id):
+        self.guild_id = guild_id
         self.client = discord.Client()
 
-    def run(self):
-            
-        async def runner(*args, **kwargs):
-            try:
-                await self.client.start(*args, **kwargs)
-            finally:
-                if not self.client.is_closed():
-                    await self.client.close()
-
-        
+    async def run(self):        
         configfile = os.path.join(get_mod_path(), 'bot_config.json')
         if not os.path.exists(configfile):
             print("Config file not found, please enter your auth token here:")
@@ -39,14 +30,14 @@ class Bot(object):
             token = config['token']
             if token == 'YOUR_TOKEN_HERE':
                 raise ValueError("You must set a token in config.json.")
-            asyncio.run(runner(token))
-        
-    async def get_user_by_id(self, user_id):
-        return await self.client.get_user(381870129706958858)
+            await self.client.start(token)
+            
+    def get_user_by_id(self, user_id):
+        return self.client.get_user(user_id)
     
-    async def get_roles_of_user(self, user_id, guild_id):
-        guild = await self.client.get_guild(guild_id)
-        member = await guild.get_member(user_id)
+    def get_roles_of_user(self, user_id):
+        guild = self.client.get_guild(self.guild_id)
+        member = guild.get_member(user_id)
         return member.roles
 
 if __name__ == '__main__':

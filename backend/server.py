@@ -22,8 +22,6 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 # app.config["DISCORD_REDIRECT_URI"] = ""                 # URL to your callback endpoint.
 # app.config["DISCORD_BOT_TOKEN"] = ""                    # Required to access BOT resources.
 
-UOAF_GUILD_ID = 582602200619024406
-
 
 def get_mod_path():
     filepath = os.path.abspath(__file__)
@@ -38,6 +36,7 @@ def create_app(config_file_name='config.py'):
     app = Quart(__name__)
     app.config.from_pyfile('config.py')
     discord_auth = DiscordOAuth2Session(app)
+    bot = Bot(app.config["ATO_PRIMARY_GUILD_ID"])
 
     try:
         verbose_debug = app.config["VERBOSE_DEBUG"]
@@ -49,6 +48,10 @@ def create_app(config_file_name='config.py'):
         logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
     app.secret_key = b"random bytes representing Quart secret key"
+
+    @app.before_serving
+    async def startup():
+        asyncio.create_task(bot.run())
 
     @app.route('/static/<path:path>')
     async def send_js(path):
@@ -70,24 +73,24 @@ def create_app(config_file_name='config.py'):
 
     @app.errorhandler(MissingMembership)
     async def render_missing_membership(e):
-        return render_template('unauthorized.html'), 401
+        return await render_template('unauthorized.html'), 401
 
     @app.route("/getEvents/")
-    @requires_membership(UOAF_GUILD_ID)
+    @requires_membership
     async def getEvents():
         eventTable = db.table('Events')
         eventsList = eventTable.all()
         return {'events': eventsList}
 
     @app.route("/getLatestEvents/")
-    @requires_membership(UOAF_GUILD_ID)
+    @requires_membership
     async def getLatestEvents():
         eventTable = db.table('Events')
         eventsList = eventTable.all()
         return {'events': eventsList[-4:]}
 
     @app.route("/updateEvent/", methods=["PUT"])
-    @requires_membership(UOAF_GUILD_ID)
+    @requires_membership
     async def updateEvent():
         eventUpdate = await request.get_json()
         eventName = eventUpdate["EventName"]
@@ -100,7 +103,7 @@ def create_app(config_file_name='config.py'):
         return {}
 
     @app.route("/putEvent/", methods=["PUT"])
-    @requires_membership(UOAF_GUILD_ID)
+    @requires_membership
     async def putEvent():
         events = db.table('Events')
         data_as_json = await request.get_json()
@@ -114,7 +117,7 @@ def create_app(config_file_name='config.py'):
         return data_as_json
 
     @app.route("/user/")
-    @requires_membership(UOAF_GUILD_ID)
+    @requires_membership
     async def get_user_info():
         user = await discord_auth.fetch_user()
         return {
