@@ -1,14 +1,22 @@
 import functools
+import asyncio
 
-from flask_discord import DiscordOAuth2Session, requires_authorization, current_app, exceptions as disc_exceptions
+import logging
+log = logging.getLogger(__name__)
+
+from quart_discord import DiscordOAuth2Session, requires_authorization, current_app, exceptions as disc_exceptions
 #from flask import exceptions
 
 class MissingMembership(disc_exceptions.HttpException):
     "Exception when required guild membership is missing."
 
-def user_is_member_of(guild_id):
-    user = current_app.discord.fetch_user()
-    guilds = current_app.discord.fetch_guilds()
+async def user_is_member_of(guild_id):
+    log.debug(f"users cache is {current_app.discord.users_cache}")
+    user = await current_app.discord.fetch_user()
+    guilds = user.guilds
+    if guilds is None:
+        log.debug("guilds is None, fetching")
+        guilds = await user.fetch_guilds()
     return any(g.id == guild_id for g in guilds)
 
 def requires_membership(guild_id):
@@ -18,12 +26,12 @@ def requires_membership(guild_id):
     """
     def decorator(view):
         @functools.wraps(view)
-        def wrapper(*args, **kwargs):
+        async def wrapper(*args, **kwargs):
             # Internals of this patterened on flask_discord.requires_authorization.
             if not current_app.discord.authorized:
                 raise disc_exceptions.Unauthorized()
-            if not user_is_member_of(guild_id):
+            if not await user_is_member_of(guild_id):
                 raise MissingMembership(guild_id)
-            return view(*args, **kwargs)
+            return await view(*args, **kwargs)
         return wrapper
     return decorator

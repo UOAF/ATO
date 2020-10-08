@@ -117,13 +117,13 @@ var obj =
     }
 );
 var json = JSON.stringify(obj);
-fetch('/updateEvent', {
-	method: 'PUT',
-	body: json, // The data
-	headers: {
-		'Content-type': 'application/json' // The type of data you're sending
-	}
-});
+// fetch('/updateEvent', {
+// 	method: 'PUT',
+// 	body: json, // The data
+// 	headers: {
+// 		'Content-type': 'application/json' // The type of data you're sending
+// 	}
+// });
 
 /* fetch('/putEvent', {
 	method: 'PUT',
