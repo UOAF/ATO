@@ -49,7 +49,7 @@ def create_app(config_file_name='config.py'):
         logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
     app.secret_key = b"random bytes representing Quart secret key"
-    
+
     def requires_role(role_name):
         def decorator(view_func):
             @functools.wraps(view_func)
@@ -66,7 +66,6 @@ def create_app(config_file_name='config.py'):
             return wrapper
         return decorator
 
-            
     @app.before_serving
     async def startup():
         asyncio.create_task(bot.run())
@@ -120,9 +119,9 @@ def create_app(config_file_name='config.py'):
         eventsTable = db.table('Events')
         dbQuery = Query()
         eventToUpdate = eventsTable.search(dbQuery.EventName == eventName)[0]
-        #eventsTable.insert(re)
+        # eventsTable.insert(re)
         #data_as_json = request.get_json()
-        #events.insert(data_as_json)
+        # events.insert(data_as_json)
         return {}
 
     @app.route("/putEvent/", methods=["PUT"])
@@ -148,7 +147,8 @@ def create_app(config_file_name='config.py'):
             'username': user.name,
             'avatar_url': user.avatar_url,
             'id': user.id,
-            'roles': [r.name for r in roles]
+            'roles': [r.name for r in roles],
+            'admin': ('Roster' in roles)
         }
 
     @app.route("/admin_test")

@@ -1,12 +1,14 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { DropdownPlugin, LayoutPlugin, NavbarPlugin } from "bootstrap-vue";
+import { ButtonPlugin, CardPlugin, DropdownPlugin, LayoutPlugin, NavbarPlugin } from "bootstrap-vue";
 import Vue from "vue";
 
 // Install BootstrapVue
 Vue.use(LayoutPlugin);
 Vue.use(DropdownPlugin);
 Vue.use(NavbarPlugin);
+Vue.use(CardPlugin)
+Vue.use(ButtonPlugin)
 
 // Optionally install the BootstrapVue icon components plugin (this adds ~6 seconds to webpack build)
 // Vue.use(IconsPlugin)
@@ -17,9 +19,7 @@ Vue.component("AtoMain", require("./components/AtoMain").default);
 
 new Vue({
   el: "#app",
-  data: {
-    message: "weirdo",
-  },
+
 });
 
 var obj = {
