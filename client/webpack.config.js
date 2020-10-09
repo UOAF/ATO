@@ -1,7 +1,9 @@
-const { join } = require('path');
+const { join, resolve } = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const { HotModuleReplacementPlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     entry: join(__dirname, 'src', 'app.ts'),
@@ -14,12 +16,14 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
+                include: resolve(__dirname, 'src'),
                 loader: 'babel-loader',
                 options: {
                     presets: ['@babel/preset-env']
                 }
             }, {
                 test: /.vue$/,
+                include: resolve(__dirname, 'src'),
                 loader: 'vue-loader'
             },
             {
@@ -32,7 +36,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
-                exclude: /node_modules/,
+                exclude: resolve(__dirname, 'node_modules'),
                 options: {
                     appendTsSuffixTo: [/\.vue$/],
                 }
@@ -47,6 +51,8 @@ module.exports = {
     },
     plugins: [
         new HotModuleReplacementPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        // new BundleAnalyzerPlugin(),
+        new CompressionPlugin()
     ]
 };

@@ -1,121 +1,109 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import Vue from 'vue';
+import { DropdownPlugin, LayoutPlugin, NavbarPlugin } from "bootstrap-vue";
+import Vue from "vue";
 
+// Install BootstrapVue
+Vue.use(LayoutPlugin);
+Vue.use(DropdownPlugin);
+Vue.use(NavbarPlugin);
 
-// const data = { username: 'example' };
+// Optionally install the BootstrapVue icon components plugin (this adds ~6 seconds to webpack build)
+// Vue.use(IconsPlugin)
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-// fetch('https://example.com/profile', {
-//   method: 'PUT', // or 'POST'
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(data),
-// })
-// .then(response => response.json())
-// .then(data => {
-//   console.log('Success:', data);
-// })
-// .catch((error) => {
-//   console.error('Error:', error);
-// });
-
-
-// import HelloComponent from './components HelloComponent';
-Vue.component('hello-component', require('./components/HelloComponent').default);
+Vue.component("AtoMain", require("./components/AtoMain").default);
 
 new Vue({
-    el: '#app', 
-    data: {
-        message: 'Hello from Webpack'
-    }
+  el: "#app",
+  data: {
+    message: "weirdo",
+  },
 });
 
-var obj = 
-(
+var obj = {
+  EventName: "Test Event 1",
+  ShortDescription: "UPDATE EVENT TEST",
+  MissionDescription: "We are testing shit. And mostly breaking shit.",
+  Date: "2012-04-23",
+  StartTime: "1800Z",
+  EndTime: "2000Z",
+  Creator: "Krause#5727",
+  Controllers: [
     {
-        "EventName": "Test Event 1",
-        "ShortDescription": "UPDATE EVENT TEST",
-        "MissionDescription": "We are testing shit. And mostly breaking shit.",
-        "Date": "2012-04-23",
-        "StartTime": "1800Z",
-        "EndTime": "2000Z",
-        "Creator": "Krause#5727",
-        "Controllers": [
+      Type: "ATC",
+      Slots: [
+        {
+          SlotName: "Ramat David Tower",
+          Players: [
             {
-                "Type": "ATC",
-                "Slots": [
-                    {
-                        "SlotName": "Ramat David Tower",
-                        "Players": [
-                            {
-                                "Player:": "Krause#5727",
-                                "Remarks": "Gonna crash all you fuckers"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Packages": [
+              "Player:": "Krause#5727",
+              Remarks: "Gonna crash all you fuckers",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  Packages: [
+    {
+      Commander: "Krause",
+      Flights: [
+        {
+          FlightName: "Satan 1-1",
+          Tasking: "DEAD",
+          Airframe: "F-16CM Blk50",
+          Airbase: "Ramat David",
+          Slots: [
             {
-                "Commander": "Krause",
-                "Flights": [
-                    {
-                        "FlightName": "Satan 1-1",
-                        "Tasking": "DEAD",
-                        "Airframe": "F-16CM Blk50",
-                        "Airbase": "Ramat David",
-                        "Slots": [
-                            {
-                                "SlotName": "Satan 1-1",
-                                "Players": [
-                                    {
-                                        "Player:": "Krause#5727",
-                                        "Type": "Pilot",
-                                        "Remarks": "Sucks at agm-88"
-                                    },
-                                    {
-                                        "Player:": "R2D2#5727",
-                                        "Type": "Backseat",
-                                        "Remarks": "Weird f-16D that snuck in"
-                                    }
-                                ]
-                            },
-                            {
-                                "SlotName": "Satan 1-2",
-                                "Players": [
-                                    {
-                                        "Player:": "Abe#6969",
-                                        "Remarks": ""
-                                    }
-                                ]
-                            },
-                            {
-                                "SlotName": "Satan 1-3",
-                                "Players": [
-                                    {
-                                        "Player:": "Razgriz#911",
-                                        "Remarks": "Likes to smell butts"
-                                    }
-                                ]
-                            },
-                            {
-                                "SlotName": "Satan 1-4",
-                                "Players": [
-                                    {
-                                        "Player:": "Floppy#6969",
-                                        "Remarks": "Yolo growler"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-);
+              SlotName: "Satan 1-1",
+              Players: [
+                {
+                  "Player:": "Krause#5727",
+                  Type: "Pilot",
+                  Remarks: "Sucks at agm-88",
+                },
+                {
+                  "Player:": "R2D2#5727",
+                  Type: "Backseat",
+                  Remarks: "Weird f-16D that snuck in",
+                },
+              ],
+            },
+            {
+              SlotName: "Satan 1-2",
+              Players: [
+                {
+                  "Player:": "Abe#6969",
+                  Remarks: "",
+                },
+              ],
+            },
+            {
+              SlotName: "Satan 1-3",
+              Players: [
+                {
+                  "Player:": "Razgriz#911",
+                  Remarks: "Likes to smell butts",
+                },
+              ],
+            },
+            {
+              SlotName: "Satan 1-4",
+              Players: [
+                {
+                  "Player:": "Floppy#6969",
+                  Remarks: "Yolo growler",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
 var json = JSON.stringify(obj);
 // fetch('/updateEvent', {
 // 	method: 'PUT',
