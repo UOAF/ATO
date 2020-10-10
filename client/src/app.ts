@@ -10,6 +10,7 @@ import {
 } from "bootstrap-vue";
 import VueRouter from "vue-router";
 import Vue from "vue";
+
 // Install BootstrapVue
 Vue.use(LayoutPlugin);
 Vue.use(DropdownPlugin);
@@ -29,9 +30,6 @@ import AtoMain from "./components/AtoMain.vue";
 import EventCalendar from "./components/EventCalendar.vue";
 import EventView from "./components/EventView.vue";
 
-// Vue.component("AtoMain", require("./components/AtoMain").default);
-// Vue.component("EventView", require("./components/EventView").default);
-
 const routes = [
   {
     path: "/",
@@ -46,14 +44,11 @@ const routes = [
 const router = new VueRouter({
   routes, // short for `routes: routes`
 });
-Vue.component("ato-main", AtoMain);
 
 new Vue({
   router,
   el: "#app",
 }).$mount("#app");
-
-// router.replace('/calendar');
 
 var obj = {
   EventName: "Test Event 1",

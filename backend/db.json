@@ -3,9 +3,9 @@
     "1": {
       "EventName": "Test Event 1",
       "ShortDescription": "Does this thing even work?",
-      "MissionDescription": "We are testing shit. And mostly breaking shit.",
-      "StartTime": "2022-04-07T18:00:00.000Z",
-      "EndTime": "2022-04-07T22:00:00.000Z",
+      "MissionDescription": "We are _testing_ shit. And mostly **breaking** shit.",
+      "StartTime": "2022-04-02T18:00:00.000Z",
+      "EndTime": "2022-04-02T22:00:00.000Z",
       "Creator": "Krause#5727",
       "Controllers": [
         {

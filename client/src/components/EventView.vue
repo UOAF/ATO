@@ -15,7 +15,7 @@
               </b-col>
             </b-row>
             <b-row fluid>
-              <b-col>Event viewer/editor goes here.</b-col>
+              <b-col><div v-html="compiledMarkdown"></div></b-col>
             </b-row>
           </b-container>
         </template>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import marked from "marked";
 export default {
   name: "EventView",
   data() {
@@ -37,6 +38,15 @@ export default {
   },
   props: {
     user: Object,
+  },
+  computed: {
+    compiledMarkdown() {
+      if (this.event) {
+        return marked(this.event.MissionDescription, { sanitize: true });
+      } else {
+        return "";
+      }
+    },
   },
   created() {
     this.updateEvent();
