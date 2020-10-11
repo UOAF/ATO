@@ -16,14 +16,10 @@ import asyncio
 
 import logging
 
+from util import AsioLockWrapper as Lock
 
 # !! Only in development environment.
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
-
-# app.config["DISCORD_CLIENT_ID"] =     # Discord client ID.
-# app.config["DISCORD_CLIENT_SECRET"] = ""                # Discord client secret.
-# app.config["DISCORD_REDIRECT_URI"] = ""                 # URL to your callback endpoint.
-# app.config["DISCORD_BOT_TOKEN"] = ""                    # Required to access BOT resources.
 
 
 def get_mod_path():
@@ -52,24 +48,29 @@ def create_app(config_file_name='config.py'):
 
     app.secret_key = b"random bytes representing Quart secret key"
 
+    # Prevent us from spamming discord's API when authenticating
+    discord_oauth_lock = Lock()
+
     def requires_role(role_name):
         def decorator(view_func):
             @functools.wraps(view_func)
             async def wrapper(*args, **kwargs):
-                if not await discord_auth.authorized():
-                    raise Unauthorized()
-                user = await discord_auth.fetch_user()
-                roles = bot.get_roles_of_user(user.id)
-                role_names = [r.name for r in roles]
-                if role_name not in role_names:
-                    raise MissingMembership()
-                else:
-                    return await view_func(*args, **kwargs)
+                async with discord_oauth_lock:
+                    if not await discord_auth.authorized():
+                        raise Unauthorized()
+                    user = await discord_auth.fetch_user()
+                    roles = bot.get_roles_of_user(user.id)
+                    role_names = [r.name for r in roles]
+                    if role_name not in role_names:
+                        raise MissingMembership()
+                    else:
+                        return await view_func(*args, **kwargs)
             return wrapper
         return decorator
 
     @app.before_serving
     async def startup():
+        discord_oauth_lock.create()
         asyncio.create_task(bot.run())
 
     @app.route("/login/")
@@ -96,20 +97,20 @@ def create_app(config_file_name='config.py'):
         return await render_template('unauthorized.html'), 401
 
     @app.route("/all_events/", methods=["GET"])
-    @requires_membership
+    @requires_membership(discord_oauth_lock)
     async def all_events():
         return {'events': db.get_all_events()}
 
     @app.route('/upcoming_events/', defaults={'n': 4})
     @app.route("/upcoming_events/<n>")
-    @requires_membership
+    @requires_membership(discord_oauth_lock)
     async def getLatestEvents(n=4):
         n = int(n)
         return {'events': db.get_upcoming_events(n)}
 
     @app.route("/event/")
     @app.route("/event/<event_id>", methods=["GET", "PUT", "POST", "DELETE"])
-    @requires_membership
+    @requires_membership(discord_oauth_lock)
     async def event(event_id=None):
         event_id = int(event_id) if event_id else None
 
@@ -134,7 +135,7 @@ def create_app(config_file_name='config.py'):
             db.delete_event(event_id)
 
     @app.route("/user/")
-    @requires_membership
+    @requires_membership(discord_oauth_lock)
     async def get_user_info():
         user = await discord_auth.fetch_user()
         roles = bot.get_roles_of_user(user.id)
