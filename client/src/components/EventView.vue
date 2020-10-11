@@ -3,20 +3,21 @@
     <b-row fluid class="mt-4" align-v="start">
       <b-col fluid>
         <template v-if="event">
-          <b-container>
-            <b-row fluid>
-              <b-col
-                ><h3>{{ event.EventName }}</h3></b-col
-              >
-            </b-row>
-            <b-row fluid>
-              <b-col>
+          <b-container fluid>
+            <b-col>
+              <b-row class="mb-0">
+                <h1>{{ event.EventName }}</h1>
+              </b-row>
+              <b-row class="mb-3">
+                <h5>{{ formatDate(event.StartTime) }}</h5>
+              </b-row>
+              <b-row class="mb-3">
                 <h5>{{ event.ShortDescription }}</h5>
-              </b-col>
-            </b-row>
-            <b-row fluid>
-              <b-col><div v-html="compiledMarkdown"></div></b-col>
-            </b-row>
+              </b-row>
+              <b-row class="mb-2">
+                <div v-html="compiledMarkdown"></div>
+              </b-row>
+            </b-col>
           </b-container>
         </template>
       </b-col>
@@ -29,6 +30,8 @@
 
 <script>
 import marked from "marked";
+import { DateTime } from "luxon";
+
 export default {
   name: "EventView",
   data() {
@@ -58,6 +61,10 @@ export default {
         .then((result) => result.json())
         .then((data) => (this.event = data))
         .catch((err) => console.log("ERROR getting event"));
+    },
+    formatDate(date_iso) {
+      var dt = DateTime.fromISO(date_iso);
+      return dt.toLocaleString(DateTime.DATETIME_FULL);
     },
   },
 };
