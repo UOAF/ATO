@@ -19,7 +19,6 @@ Vue.use(CardPlugin);
 Vue.use(ButtonPlugin);
 Vue.use(VueRouter);
 Vue.use(ImagePlugin);
-Vue.use(require("vue-moment"));
 
 // Optionally install the BootstrapVue icon components plugin (this adds ~6 seconds to webpack build)
 // Vue.use(IconsPlugin)

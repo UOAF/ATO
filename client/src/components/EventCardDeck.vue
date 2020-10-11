@@ -13,7 +13,9 @@
           >View</b-button
         >
         <template v-slot:header>
-          <small> {{ e.Event.StartTime | moment("llll") }}</small>
+          <small>
+            {{ formattedDate(e.Event.StartTime) }}
+          </small>
         </template>
       </b-card>
     </b-card-group>
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import {DateTime} from "luxon";
 export default {
   name: "EventCardDeck",
   data() {
@@ -31,11 +34,19 @@ export default {
   created() {
     this.getEventData();
   },
+  computed: {},
   methods: {
     async getEventData() {
       fetch("/upcoming_events/4")
         .then((result) => result.json())
         .then((data) => (this.events = data.events));
+    },
+    formattedDate(date_iso) {
+      if (!date_iso) {
+        return "";
+      }
+      var dt = DateTime.fromISO(date_iso);
+      return dt.toLocaleString(DateTime.DATETIME_FULL);
     },
   },
 };
