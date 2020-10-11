@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
+  <html>
+    <head>
+      <!-- <title>{user.name}</title> -->
+      <link rel="shortcut icon" href="/static/ato.png" />
+      <title>Air Tasking Order</title>
+    </head>
 
-<head>
-    <!-- <title>{user.name}</title> -->
-    <link rel="shortcut icon" href="https://codex.uoaf.net/images/0/0a/UOAF_Roundel_clean.png" />
-    <title>Air Tasking Order</title>
-</head>
-
-<body>
-    <div id="app">
+    <body>
+      <div id="app">
         <div class="container">
-            <div class="row my-5 justify-content-center">
-                <ato-main />
-            </div>
+          <div class="row my-5 justify-content-center">
+            <router-view />
+          </div>
         </div>
-    </div>
-    <script src="/static/app.min.js"></script>
-    <!-- <img src='{user.avatar_url}' /> -->
-</body>
-
+      </div>
+      <script type="text/javascript" src="/static/app.min.js"></script>
+      <!-- <img src='{user.avatar_url}' /> -->
+    </body>
+  </html>
 </html>

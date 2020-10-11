@@ -1,11 +1,13 @@
 import os
 import json
 
-from quart import Quart, redirect, url_for, send_from_directory, send_file, request, render_template
-from quart_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+from quart import Quart, redirect, url_for, send_from_directory, send_file, \
+    request, render_template, abort
+from quart_discord import DiscordOAuth2Session, \
+    requires_authorization, Unauthorized
 import discord
-from tinydb import TinyDB, Query, where
 from bot import Bot
+from store import Store
 
 from util import requires_membership, MissingMembership
 
@@ -33,7 +35,7 @@ def get_mod_path():
 def create_app(config_file_name='config.py'):
     asyncio.set_event_loop(asyncio.new_event_loop())
     dbFile = os.path.join(os.path.dirname(__file__), 'db.json')
-    db = TinyDB(dbFile)
+    db = Store(dbFile)
     app = Quart(__name__)
     app.config.from_pyfile('config.py')
     discord_auth = DiscordOAuth2Session(app)
@@ -70,10 +72,6 @@ def create_app(config_file_name='config.py'):
     async def startup():
         asyncio.create_task(bot.run())
 
-    @app.route('/static/<path:path>')
-    async def send_js(path):
-        return send_from_directory('js', path)
-
     @app.route("/login/")
     async def login():
         result = await discord_auth.create_session()
@@ -97,58 +95,57 @@ def create_app(config_file_name='config.py'):
     async def render_missing_membership(e):
         return await render_template('unauthorized.html'), 401
 
-    @app.route("/getEvents/")
+    @app.route("/all_events/", methods=["GET"])
     @requires_membership
-    async def getEvents():
-        eventTable = db.table('Events')
-        eventsList = eventTable.all()
-        return {'events': eventsList}
+    async def all_events():
+        return {'events': db.get_all_events()}
 
-    @app.route("/getLatestEvents/")
+    @app.route('/upcoming_events/', defaults={'n': 4})
+    @app.route("/upcoming_events/<n>")
     @requires_membership
-    async def getLatestEvents():
-        eventTable = db.table('Events')
-        eventsList = eventTable.all()
-        return {'events': eventsList[-4:]}
+    async def getLatestEvents(n=4):
+        n = int(n)
+        return {'events': db.get_upcoming_events(n)}
 
-    @app.route("/updateEvent/", methods=["PUT"])
+    @app.route("/event/")
+    @app.route("/event/<event_id>", methods=["GET", "PUT", "POST", "DELETE"])
     @requires_membership
-    async def updateEvent():
-        eventUpdate = await request.get_json()
-        eventName = eventUpdate["EventName"]
-        eventsTable = db.table('Events')
-        dbQuery = Query()
-        eventToUpdate = eventsTable.search(dbQuery.EventName == eventName)[0]
-        # eventsTable.insert(re)
-        #data_as_json = request.get_json()
-        # events.insert(data_as_json)
-        return {}
+    async def event(event_id=None):
+        event_id = int(event_id) if event_id else None
 
-    @app.route("/putEvent/", methods=["PUT"])
-    @requires_membership
-    async def putEvent():
-        events = db.table('Events')
-        data_as_json = await request.get_json()
-        eventName = data_as_json["EventName"]
-        dbQuery = Query()
-        checkEventName = events.search(dbQuery.EventName == eventName)
-        if (len(checkEventName) > 0):
-            print(f"ERROR: {eventName} already found, not inserting.")
-            return (f"ERROR: {eventName} already found, not inserting")
-        events.insert(data_as_json)
-        return data_as_json
+        if request.method == "GET":
+            event = db.get_event(event_id)
+            if event is None:
+                await abort(404, "Event not found.")
+            return event
+
+        elif request.method == "PUT":
+            event = db.get_event(event_id)
+            if event is None:
+                await abort(404, "Event not found.")
+            event_data = await request.get_json()
+            db.update_event(event_id, event_data)
+
+        elif request.method == "POST":
+            event_data = await request.get_json()
+            db.update_event(event_data)
+
+        elif request.method == "DELETE":
+            db.delete_event(event_id)
 
     @app.route("/user/")
     @requires_membership
     async def get_user_info():
         user = await discord_auth.fetch_user()
         roles = bot.get_roles_of_user(user.id)
+        role_names = [r.name for r in roles]
+
         return {
             'username': user.name,
             'avatar_url': user.avatar_url,
             'id': user.id,
-            'roles': [r.name for r in roles],
-            'admin': ('Roster' in roles)
+            'roles': role_names,
+            'admin': ('Roster' in role_names)
         }
 
     @app.route("/admin_test")

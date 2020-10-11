@@ -1,34 +1,66 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { ButtonPlugin, CardPlugin, DropdownPlugin, LayoutPlugin, NavbarPlugin } from "bootstrap-vue";
+import {
+  ButtonPlugin,
+  CardPlugin,
+  DropdownPlugin,
+  LayoutPlugin,
+  NavbarPlugin,
+  ImagePlugin,
+} from "bootstrap-vue";
+import VueRouter from "vue-router";
 import Vue from "vue";
-
 // Install BootstrapVue
 Vue.use(LayoutPlugin);
 Vue.use(DropdownPlugin);
 Vue.use(NavbarPlugin);
-Vue.use(CardPlugin)
-Vue.use(ButtonPlugin)
+Vue.use(CardPlugin);
+Vue.use(ButtonPlugin);
+Vue.use(VueRouter);
+Vue.use(ImagePlugin);
+Vue.use(require("vue-moment"));
 
 // Optionally install the BootstrapVue icon components plugin (this adds ~6 seconds to webpack build)
 // Vue.use(IconsPlugin)
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
-Vue.component("AtoMain", require("./components/AtoMain").default);
+import AtoMain from "./components/AtoMain.vue";
+import EventCalendar from "./components/EventCalendar.vue";
+import EventView from "./components/EventView.vue";
+
+// Vue.component("AtoMain", require("./components/AtoMain").default);
+// Vue.component("EventView", require("./components/EventView").default);
+
+const routes = [
+  {
+    path: "/",
+    component: AtoMain,
+    children: [
+      { path: "", component: EventCalendar },
+      { path: "/event/:id", component: EventView },
+    ],
+  },
+];
+
+const router = new VueRouter({
+  routes, // short for `routes: routes`
+});
+Vue.component("ato-main", AtoMain);
 
 new Vue({
+  router,
   el: "#app",
+}).$mount("#app");
 
-});
+// router.replace('/calendar');
 
 var obj = {
   EventName: "Test Event 1",
   ShortDescription: "UPDATE EVENT TEST",
   MissionDescription: "We are testing shit. And mostly breaking shit.",
-  Date: "2012-04-23",
-  StartTime: "1800Z",
-  EndTime: "2000Z",
+  StartTime: "2012-10-09T18:00:00.000Z",
+  EndTime: "2012-10-09T22:00:00.000Z",
   Creator: "Krause#5727",
   Controllers: [
     {
@@ -119,4 +151,5 @@ var json = JSON.stringify(obj);
 	headers: {
 		'Content-type': 'application/json' // The type of data you're sending
 	}
-}); */
+});
+ */

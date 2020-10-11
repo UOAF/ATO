@@ -4,6 +4,7 @@ import asyncio
 from quart import current_app as app
 from quart_discord import DiscordOAuth2Session, requires_authorization, \
     exceptions as disc_exceptions, current_app
+from datetime import datetime
 
 log = logging.getLogger(__name__)
 
@@ -45,3 +46,11 @@ def requires_membership(view):
             raise MissingMembership(guild_id)
         return await view(*args, **kwargs)
     return wrapper
+
+
+_DATETIME_FORMAT_STR = '%Y-%m-%dT%H:%M:%S.%fZ'
+def json_to_datetime(json_timestamp):
+    return datetime.strptime(json_timestamp, _DATETIME_FORMAT_STR)
+
+def datetime_to_json(dt_obj):
+    return dt_obj.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]+'Z'

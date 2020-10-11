@@ -5,12 +5,9 @@
         <user-component v-if="user" v-bind:user="user" />
       </b-col>
     </b-row>
-    <b-row fluid class="mt-4" align-v="end">
-      <b-col fluid>
-        <event-card-deck />
-      </b-col>
-      <b-col cols="12" md="auto">
-        <b-button variant="primary"> New </b-button>
+    <b-row fluid class="mt-4">
+      <b-col>
+        <router-view v-bind:user="user"></router-view>
       </b-col>
     </b-row>
   </b-container>
@@ -18,11 +15,9 @@
 
 <script>
 import UserComponent from "./UserComponent.vue";
-import EventCardDeck from "./EventCardDeck.vue";
 export default {
   components: {
     "user-component": UserComponent,
-    "event-card-deck": EventCardDeck,
   },
   name: "AtoMain",
   data() {

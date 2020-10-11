@@ -2,16 +2,18 @@
   <div>
     <b-card-group deck>
       <b-card
-        v-for="event in events"
-        :key="event.Title"
+        v-for="e in events"
+        :key="e.Event.Title"
         header="featured"
         header-tag="header"
-        :title="event.EventName"
+        :title="e.Event.EventName"
       >
-        <b-card-text>{{ event.MissionDescription }}</b-card-text>
-        <b-button href="#" variant="secondary">Edit</b-button>
+        <b-card-text>{{ e.Event.ShortDescription }}</b-card-text>
+        <b-button href="#" variant="secondary" :to="`/event/${e.EventId}`"
+          >View</b-button
+        >
         <template v-slot:header>
-          <small>{{ event.Date }} - {{ event.StartTime }}</small>
+          <small> {{ e.Event.StartTime | moment("llll") }}</small>
         </template>
       </b-card>
     </b-card-group>
@@ -27,11 +29,11 @@ export default {
     };
   },
   created() {
-    this.getUserData();
+    this.getEventData();
   },
   methods: {
-    async getUserData() {
-      fetch("/getLatestEvents/")
+    async getEventData() {
+      fetch("/upcoming_events/4")
         .then((result) => result.json())
         .then((data) => (this.events = data.events));
     },

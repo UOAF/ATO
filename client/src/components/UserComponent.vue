@@ -1,6 +1,6 @@
 <template>
   <b-navbar type="light" variant="light">
-    <b-navbar-brand>ATO</b-navbar-brand>
+    <b-navbar-brand>UOAF Event Schedule</b-navbar-brand>
     <template v-if="user">
       <b-navbar-nav class="ml-auto">
         <!-- Navbar dropdowns -->

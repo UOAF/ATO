@@ -15,6 +15,14 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: resolve(__dirname, 'node_modules'),
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                }
+            },
+            {
                 test: /\.js$/,
                 include: resolve(__dirname, 'src'),
                 loader: 'babel-loader',
@@ -22,8 +30,8 @@ module.exports = {
                     presets: ['@babel/preset-env']
                 }
             }, {
-                test: /.vue$/,
-                include: resolve(__dirname, 'src'),
+                test: /\.vue$/,
+                ///include: resolve(__dirname, 'src'),
                 loader: 'vue-loader'
             },
             {
@@ -32,22 +40,15 @@ module.exports = {
                     'vue-style-loader',
                     'css-loader'
                 ]
-            },
-            {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
-                exclude: resolve(__dirname, 'node_modules'),
-                options: {
-                    appendTsSuffixTo: [/\.vue$/],
-                }
             }
+
         ]
     },
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.esm.js'
         },
-        extensions: ['*', '.js', '.vue', '.json']
+        extensions: ['.ts', '.js', '.vue', '.json'],
     },
     plugins: [
         new HotModuleReplacementPlugin(),
