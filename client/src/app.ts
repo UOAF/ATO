@@ -7,6 +7,7 @@ import {
   LayoutPlugin,
   NavbarPlugin,
   ImagePlugin,
+  AvatarPlugin,
   BIcon,
   BIconPlus,
   BIconArrow90degLeft
@@ -22,6 +23,7 @@ Vue.use(CardPlugin);
 Vue.use(ButtonPlugin);
 Vue.use(VueRouter);
 Vue.use(ImagePlugin);
+Vue.use(AvatarPlugin);
 Vue.component('BIcon', BIcon);
 Vue.component('BIconPlus', BIconPlus);
 Vue.component('BIconArrow90degLeft', BIconArrow90degLeft);

@@ -6,7 +6,7 @@
       "MissionDescription": "We are _testing_ shit. And mostly **breaking** shit.",
       "StartTime": "2022-04-02T18:00:00.000Z",
       "EndTime": "2022-04-02T22:00:00.000Z",
-      "Creator": "Krause#5727",
+      "Creator": "106225038004371456",
       "Controllers": [
         {
           "Type": "ATC",
@@ -15,7 +15,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player": "Krause#5727",
+                  "PlayerId": "106225038004371456",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -26,7 +26,7 @@
       "Packages": [
         {
           "Identifier": "69",
-          "Commander": "Krause",
+          "CommanderId": "106225038004371456",
           "Flights": [
             {
               "FlightName": "Satan 1",
@@ -38,12 +38,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player": "Krause#5727",
+                      "PlayerId": "106225038004371456",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player": "R2D2#5727",
+                      "PlayerId": "237287072413515776",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -51,13 +51,15 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
+                  "Players": [
+                    { "PlayerId": "138393495655284736", "Remarks": "" }
+                  ]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player": "Razgriz#911",
+                      "PlayerId": "308798067023544320",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -65,7 +67,10 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
+                    {
+                      "PlayerId": "242863638476619776",
+                      "Remarks": "Yolo growler"
+                    }
                   ]
                 }
               ]
@@ -80,7 +85,7 @@
       "MissionDescription": "We are testing shit. And mostly breaking shit.",
       "StartTime": "2022-04-14T18:00:00.000Z",
       "EndTime": "2022-04-14T22:00:00.000Z",
-      "Creator": "Krause#5727",
+      "Creator": "106225038004371456",
       "Controllers": [
         {
           "Type": "ATC",
@@ -89,7 +94,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player": "Krause#5727",
+                  "PlayerId": "106225038004371456",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -100,7 +105,7 @@
       "Packages": [
         {
           "Identifier": "69",
-          "Commander": "Krause",
+          "CommanderId": "106225038004371456",
           "Flights": [
             {
               "FlightName": "Satan 1",
@@ -112,12 +117,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player": "Krause#5727",
+                      "PlayerId": "106225038004371456",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player": "R2D2#5727",
+                      "PlayerId": "237287072413515776",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -125,13 +130,15 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
+                  "Players": [
+                    { "PlayerId": "138393495655284736", "Remarks": "" }
+                  ]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player": "Razgriz#911",
+                      "PlayerId": "308798067023544320",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -139,7 +146,10 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
+                    {
+                      "PlayerId": "242863638476619776",
+                      "Remarks": "Yolo growler"
+                    }
                   ]
                 }
               ]
@@ -154,7 +164,7 @@
       "MissionDescription": "We are testing shit. And mostly breaking shit.",
       "StartTime": "2022-04-21T18:00:00.000Z",
       "EndTime": "2022-04-21T22:00:00.000Z",
-      "Creator": "Krause#5727",
+      "Creator": "106225038004371456",
       "Controllers": [
         {
           "Type": "ATC",
@@ -163,7 +173,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player": "Krause#5727",
+                  "PlayerId": "106225038004371456",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -174,7 +184,7 @@
       "Packages": [
         {
           "Identifier": "69",
-          "Commander": "Krause",
+          "CommanderId": "106225038004371456",
           "Flights": [
             {
               "FlightName": "Satan 1",
@@ -186,12 +196,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player": "Krause#5727",
+                      "PlayerId": "106225038004371456",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player": "R2D2#5727",
+                      "PlayerId": "237287072413515776",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -199,13 +209,15 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
+                  "Players": [
+                    { "PlayerId": "138393495655284736", "Remarks": "" }
+                  ]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player": "Razgriz#911",
+                      "PlayerId": "308798067023544320",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -213,7 +225,10 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
+                    {
+                      "PlayerId": "242863638476619776",
+                      "Remarks": "Yolo growler"
+                    }
                   ]
                 }
               ]
@@ -228,7 +243,7 @@
       "MissionDescription": "We are testing shit. And mostly breaking shit.",
       "StartTime": "2022-04-28T18:00:00.000Z",
       "EndTime": "2022-04-28T22:00:00.000Z",
-      "Creator": "Krause#5727",
+      "Creator": "106225038004371456",
       "Controllers": [
         {
           "Type": "ATC",
@@ -237,7 +252,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player": "Krause#5727",
+                  "PlayerId": "106225038004371456",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -248,7 +263,7 @@
       "Packages": [
         {
           "Identifier": "69",
-          "Commander": "Krause",
+          "CommanderId": "106225038004371456",
           "Flights": [
             {
               "FlightName": "Satan 1",
@@ -260,12 +275,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player": "Krause#5727",
+                      "PlayerId": "106225038004371456",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player": "R2D2#5727",
+                      "PlayerId": "237287072413515776",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -273,13 +288,15 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
+                  "Players": [
+                    { "PlayerId": "138393495655284736", "Remarks": "" }
+                  ]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player": "Razgriz#911",
+                      "PlayerId": "308798067023544320",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -287,7 +304,10 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
+                    {
+                      "PlayerId": "242863638476619776",
+                      "Remarks": "Yolo growler"
+                    }
                   ]
                 }
               ]
@@ -302,7 +322,7 @@
       "MissionDescription": "We are testing shit. And mostly breaking shit.",
       "StartTime": "2022-05-05T18:00:00.000Z",
       "EndTime": "2022-05-05T22:00:00.000Z",
-      "Creator": "Krause#5727",
+      "Creator": "106225038004371456",
       "Controllers": [
         {
           "Type": "ATC",
@@ -311,7 +331,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player": "Krause#5727",
+                  "PlayerId": "106225038004371456",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -322,7 +342,7 @@
       "Packages": [
         {
           "Identifier": "69",
-          "Commander": "Krause",
+          "CommanderId": "106225038004371456",
           "Flights": [
             {
               "FlightName": "Satan 1",
@@ -334,12 +354,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player": "Krause#5727",
+                      "PlayerId": "106225038004371456",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player": "R2D2#5727",
+                      "PlayerId": "237287072413515776",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -347,13 +367,15 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
+                  "Players": [
+                    { "PlayerId": "138393495655284736", "Remarks": "" }
+                  ]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player": "Razgriz#911",
+                      "PlayerId": "308798067023544320",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -361,7 +383,10 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
+                    {
+                      "PlayerId": "242863638476619776",
+                      "Remarks": "Yolo growler"
+                    }
                   ]
                 }
               ]

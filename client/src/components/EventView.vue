@@ -63,7 +63,13 @@
                   <td><b>Package</b></td>
                   <td class="bg-light editable">{{ pkg.Identifier }}</td>
                   <td><b>Commander:</b></td>
-                  <td class="bg-light editable">{{ pkg.Commander }}</td>
+                  <td class="bg-light editable">
+                    <b-avatar
+                      :src="pkg.Commander.avatar_url"
+                      size="1.5em"
+                    ></b-avatar>
+                    {{ pkg.Commander.username }}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -115,8 +121,12 @@
                     </tr>
                     <tr v-for="slot in flight.Slots" :key="slot.SlotName">
                       <td class="bg-light editable">{{ slot.SlotName }}</td>
-                      <td class="bg-light editable">
-                        {{ slot.Players[0].Player }}
+                      <td class="bg-light editable" v-if="slot.Players[0].User">
+                        <b-avatar
+                          :src="slot.Players[0].User.avatar_url"
+                          size="1.5em"
+                        ></b-avatar>
+                        {{ slot.Players[0].User.username }}
                       </td>
                       <td class="bg-light editable">
                         {{ slot.Players[0].Remarks }}
@@ -187,12 +197,47 @@ export default {
     this.updateEvent();
   },
   methods: {
+    async getUserInfo(user_id) {
+      let resp = await fetch("/user/".concat(user_id));
+      if (!resp.ok) {
+        console.error("Http error ${resp.status} getting user ${user_id}.");
+      }
+      return await resp.json();
+    },
+
     async updateEvent() {
       this.event_id = this.$route.params.id;
-      fetch("/event/" + this.event_id, { redirect: "error" })
-        .then((result) => result.json())
-        .then((data) => (this.event = data))
-        .catch((err) => console.log("ERROR getting event"));
+      try {
+        let resp = await fetch("/event/" + this.event_id, {
+          redirect: "error",
+        });
+        let data = await resp.json();
+
+        await Promise.all(
+          data.Packages.map(async (p) => {
+            p.Commander = await this.getUserInfo(p.CommanderId);
+            return Promise.all(
+              p.Flights.map(async (flight) =>
+                Promise.all(
+                  flight.Slots.map(async (slot) =>
+                    Promise.all(
+                      slot.Players.map(async (player) => {
+                        let info = await this.getUserInfo(player.PlayerId);
+                        player.User = info;
+                        return player;
+                      })
+                    )
+                  )
+                )
+              )
+            );
+          })
+        );
+        this.event = data;
+      } catch (err) {
+        console.log(err);
+        console.log("ERROR getting event");
+      }
     },
     formatDate(date_iso) {
       var dt = DateTime.fromISO(date_iso);
