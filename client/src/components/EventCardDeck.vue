@@ -3,7 +3,7 @@
     <b-card-group deck>
       <b-card
         v-for="e in events"
-        :key="e.Event.Title"
+        :key="e.Event.EventName"
         header="featured"
         header-tag="header"
         :title="e.Event.EventName"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import {DateTime} from "luxon";
+import { DateTime } from "luxon";
 export default {
   name: "EventCardDeck",
   data() {

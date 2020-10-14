@@ -7,6 +7,9 @@ import {
   LayoutPlugin,
   NavbarPlugin,
   ImagePlugin,
+  BIcon,
+  BIconPlus,
+  BIconArrow90degLeft
 } from "bootstrap-vue";
 import VueRouter from "vue-router";
 import Vue from "vue";
@@ -19,6 +22,9 @@ Vue.use(CardPlugin);
 Vue.use(ButtonPlugin);
 Vue.use(VueRouter);
 Vue.use(ImagePlugin);
+Vue.component('BIcon', BIcon);
+Vue.component('BIconPlus', BIconPlus);
+Vue.component('BIconArrow90degLeft', BIconArrow90degLeft);
 
 // Optionally install the BootstrapVue icon components plugin (this adds ~6 seconds to webpack build)
 // Vue.use(IconsPlugin)

@@ -15,7 +15,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player:": "Krause#5727",
+                  "Player": "Krause#5727",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -25,10 +25,11 @@
       ],
       "Packages": [
         {
+          "Identifier": "69",
           "Commander": "Krause",
           "Flights": [
             {
-              "FlightName": "Satan 1-1",
+              "FlightName": "Satan 1",
               "Tasking": "DEAD",
               "Airframe": "F-16CM Blk50",
               "Airbase": "Ramat David",
@@ -37,12 +38,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player:": "Krause#5727",
+                      "Player": "Krause#5727",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player:": "R2D2#5727",
+                      "Player": "R2D2#5727",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -50,13 +51,13 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player:": "Abe#6969", "Remarks": "" }]
+                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player:": "Razgriz#911",
+                      "Player": "Razgriz#911",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -64,7 +65,7 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player:": "Floppy#6969", "Remarks": "Yolo growler" }
+                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
                   ]
                 }
               ]
@@ -88,7 +89,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player:": "Krause#5727",
+                  "Player": "Krause#5727",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -98,10 +99,11 @@
       ],
       "Packages": [
         {
+          "Identifier": "69",
           "Commander": "Krause",
           "Flights": [
             {
-              "FlightName": "Satan 1-1",
+              "FlightName": "Satan 1",
               "Tasking": "DEAD",
               "Airframe": "F-16CM Blk50",
               "Airbase": "Ramat David",
@@ -110,12 +112,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player:": "Krause#5727",
+                      "Player": "Krause#5727",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player:": "R2D2#5727",
+                      "Player": "R2D2#5727",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -123,13 +125,13 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player:": "Abe#6969", "Remarks": "" }]
+                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player:": "Razgriz#911",
+                      "Player": "Razgriz#911",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -137,7 +139,7 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player:": "Floppy#6969", "Remarks": "Yolo growler" }
+                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
                   ]
                 }
               ]
@@ -161,7 +163,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player:": "Krause#5727",
+                  "Player": "Krause#5727",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -171,10 +173,11 @@
       ],
       "Packages": [
         {
+          "Identifier": "69",
           "Commander": "Krause",
           "Flights": [
             {
-              "FlightName": "Satan 1-1",
+              "FlightName": "Satan 1",
               "Tasking": "DEAD",
               "Airframe": "F-16CM Blk50",
               "Airbase": "Ramat David",
@@ -183,12 +186,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player:": "Krause#5727",
+                      "Player": "Krause#5727",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player:": "R2D2#5727",
+                      "Player": "R2D2#5727",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -196,13 +199,13 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player:": "Abe#6969", "Remarks": "" }]
+                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player:": "Razgriz#911",
+                      "Player": "Razgriz#911",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -210,7 +213,7 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player:": "Floppy#6969", "Remarks": "Yolo growler" }
+                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
                   ]
                 }
               ]
@@ -234,7 +237,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player:": "Krause#5727",
+                  "Player": "Krause#5727",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -244,10 +247,11 @@
       ],
       "Packages": [
         {
+          "Identifier": "69",
           "Commander": "Krause",
           "Flights": [
             {
-              "FlightName": "Satan 1-1",
+              "FlightName": "Satan 1",
               "Tasking": "DEAD",
               "Airframe": "F-16CM Blk50",
               "Airbase": "Ramat David",
@@ -256,12 +260,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player:": "Krause#5727",
+                      "Player": "Krause#5727",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player:": "R2D2#5727",
+                      "Player": "R2D2#5727",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -269,13 +273,13 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player:": "Abe#6969", "Remarks": "" }]
+                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player:": "Razgriz#911",
+                      "Player": "Razgriz#911",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -283,7 +287,7 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player:": "Floppy#6969", "Remarks": "Yolo growler" }
+                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
                   ]
                 }
               ]
@@ -307,7 +311,7 @@
               "SlotName": "Ramat David Tower",
               "Players": [
                 {
-                  "Player:": "Krause#5727",
+                  "Player": "Krause#5727",
                   "Remarks": "Gonna crash all you fuckers"
                 }
               ]
@@ -317,10 +321,11 @@
       ],
       "Packages": [
         {
+          "Identifier": "69",
           "Commander": "Krause",
           "Flights": [
             {
-              "FlightName": "Satan 1-1",
+              "FlightName": "Satan 1",
               "Tasking": "DEAD",
               "Airframe": "F-16CM Blk50",
               "Airbase": "Ramat David",
@@ -329,12 +334,12 @@
                   "SlotName": "Satan 1-1",
                   "Players": [
                     {
-                      "Player:": "Krause#5727",
+                      "Player": "Krause#5727",
                       "Type": "Pilot",
                       "Remarks": "Sucks at agm-88"
                     },
                     {
-                      "Player:": "R2D2#5727",
+                      "Player": "R2D2#5727",
                       "Type": "Backseat",
                       "Remarks": "Weird f-16D that snuck in"
                     }
@@ -342,13 +347,13 @@
                 },
                 {
                   "SlotName": "Satan 1-2",
-                  "Players": [{ "Player:": "Abe#6969", "Remarks": "" }]
+                  "Players": [{ "Player": "Abe#6969", "Remarks": "" }]
                 },
                 {
                   "SlotName": "Satan 1-3",
                   "Players": [
                     {
-                      "Player:": "Razgriz#911",
+                      "Player": "Razgriz#911",
                       "Remarks": "Likes to smell butts"
                     }
                   ]
@@ -356,7 +361,7 @@
                 {
                   "SlotName": "Satan 1-4",
                   "Players": [
-                    { "Player:": "Floppy#6969", "Remarks": "Yolo growler" }
+                    { "Player": "Floppy#6969", "Remarks": "Yolo growler" }
                   ]
                 }
               ]
