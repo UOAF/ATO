@@ -143,18 +143,41 @@ def create_app(config_file_name='config.py'):
 
         return {
             'username': user.name,
-            'avatar_url': user.avatar_url,
+            'avatar_url': str(user.avatar_url),
             'id': user.id,
             'roles': role_names,
             'admin': ('Roster' in role_names)
         }
 
-    @app.route("/admin_test")
+    @app.route("/user/<user_id>")
+    async def get_other_user(user_id):
+        user_id = int(user_id)
+        user = bot.get_user_by_id(user_id)
+        roles = bot.get_roles_of_user(user_id)
+        role_names = [r.name for r in roles]
+
+        return {
+            'username': user.name,
+            'avatar_url': str(user.avatar_url),
+            'id': user.id,
+            'roles': role_names,
+            'admin': ('Roster' in role_names)
+        }
+
+    @app.route("/all_users/")
+    @requires_membership(discord_oauth_lock)
+    async def get_all_users():
+        users = bot.get_all_users()
+        return {
+            'Users': [{'id': u.id, 'name': u.display_name} for u in users]
+        }
+
+    @app.route("/admin_test/")
     @requires_role('Roster')
     async def admin_test():
         return "You are an admin!!!"
 
-    @app.route("/admin_test_negative")
+    @app.route("/admin_test_negative/")
     @requires_role('Rooster')
     async def admin_test_negative():
         return "You are an admin!!!"

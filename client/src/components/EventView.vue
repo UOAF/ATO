@@ -4,7 +4,7 @@
       <b-col>
         <template v-if="event">
           <b-container>
-            <b-col class="test2">
+            <b-col>
               <b-row class="mb-0">
                 <b-col>
                   <h1>{{ event.EventName }}</h1>

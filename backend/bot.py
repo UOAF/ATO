@@ -41,6 +41,10 @@ class Bot(object):
         guild = self.client.get_guild(self.guild_id)
         member = guild.get_member(user_id)
         return member.roles
+    
+    def get_all_users(self):
+        guild = self.client.get_guild(self.guild_id)
+        return guild.members
 
 if __name__ == '__main__':
     b = Bot()
