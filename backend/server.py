@@ -152,12 +152,12 @@ def create_app(config_file_name='config.py'):
     @app.route("/user/<user_id>")
     async def get_other_user(user_id):
         user_id = int(user_id)
-        user = bot.get_user_by_id(user_id)
+        user = bot.get_member_by_id(user_id)
         roles = bot.get_roles_of_user(user_id)
         role_names = [r.name for r in roles]
 
         return {
-            'username': user.name,
+            'username': user.display_name,
             'avatar_url': str(user.avatar_url),
             'id': user.id,
             'roles': role_names,
