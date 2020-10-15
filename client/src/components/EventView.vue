@@ -116,20 +116,23 @@
                   <table class="pkgform" style="width: 100%; margin-left: 2em">
                     <tr>
                       <th>Slot</th>
+                      <th>Role</th>
                       <th>Player</th>
                       <th>Remarks</th>
                     </tr>
                     <tr v-for="slot in flight.Slots" :key="slot.SlotName">
                       <td class="bg-light editable">{{ slot.SlotName }}</td>
-                      <td class="bg-light editable" v-if="slot.Players[0].User">
+                      <td class="bg-light editable">{{ slot.Type }}</td>
+                      <td class="bg-light editable" v-if="slot.User">
                         <b-avatar
-                          :src="slot.Players[0].User.avatar_url"
+                          :src="slot.User.avatar_url"
                           size="1.5em"
                         ></b-avatar>
-                        {{ slot.Players[0].User.username }}
+                        {{ slot.User.username }}
                       </td>
+                      <td v-else></td>
                       <td class="bg-light editable">
-                        {{ slot.Players[0].Remarks }}
+                        {{ slot.Remarks }}
                       </td>
                     </tr>
                   </table>
@@ -233,6 +236,40 @@ export default {
             );
           })
         );
+
+        console.log("Data is first:");
+        console.log(data);
+
+        const flattenSlots = function (slots) {
+          let new_slots = [];
+          for (let slot of slots) {
+            const players = slot.Players;
+            delete slot.Players;
+            let idx = 0;
+            for (let player of players) {
+              const role = player.Type ? player.Type : "Pilot";
+              const slot_name = 0 == idx ? slot.SlotName : "";
+              const user = player.User ? player.User : {};
+              new_slots.push({
+                SlotName: slot_name,
+                Type: role,
+                Remarks: player.Remarks,
+                User: user,
+              });
+              idx++;
+            }
+          }
+          return new_slots;
+        };
+
+        for (let pkg of data.Packages) {
+          for (let flight of pkg.Flights) {
+            flight.Slots = flattenSlots(flight.Slots);
+          }
+        }
+        console.log("and after transformation:");
+        console.log(data);
+
         this.event = data;
       } catch (err) {
         console.log(err);
