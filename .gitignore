@@ -3,6 +3,8 @@ client/node_modules
 /client/dist
 /backend/config.py
 /backend/bot_config.json
+/backend/static/app.min.js.map
+/backend/static/app.min.js.map.gz
 .DS_Store
 node_modules
 dist

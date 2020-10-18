@@ -12,6 +12,8 @@ module.exports = {
         filename: 'app.min.js'
     },
     watch: false,
+    cache: true,
+    devtool: "source-map",
     module: {
         rules: [
             {
