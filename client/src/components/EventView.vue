@@ -249,7 +249,7 @@ export default {
             }
           }
           for (const pkg of data.Packages) {
-            userIds.push(pkg.CommanderId);
+            addUserId(pkg.CommanderId);
             for (const flight of pkg.Flights) {
               for (const slot of flight.Slots) {
                 for (const player of slot.Players) {
