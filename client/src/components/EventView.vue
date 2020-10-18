@@ -65,10 +65,10 @@
                   <td><b>Commander:</b></td>
                   <td class="bg-light editable">
                     <b-avatar
-                      :src="pkg.Commander.avatar_url"
+                      :src="getUserData(pkg.CommanderId).avatar_url"
                       size="1.5em"
                     ></b-avatar>
-                    {{ pkg.Commander.username }}
+                    {{ getUserData(pkg.CommanderId).username }}
                   </td>
                 </tr>
               </table>
@@ -123,12 +123,12 @@
                     <tr v-for="slot in flight.Slots" :key="slot.SlotName">
                       <td class="bg-light editable">{{ slot.SlotName }}</td>
                       <td class="bg-light editable">{{ slot.Type }}</td>
-                      <td class="bg-light editable" v-if="slot.User">
+                      <td class="bg-light editable" v-if="slot.PlayerId">
                         <b-avatar
-                          :src="slot.User.avatar_url"
+                          :src="getUserData(slot.PlayerId).avatar_url"
                           size="1.5em"
                         ></b-avatar>
-                        {{ slot.User.username }}
+                        {{ getUserData(slot.PlayerId).username }}
                       </td>
                       <td v-else></td>
                       <td class="bg-light editable">
@@ -182,6 +182,8 @@ export default {
   data() {
     return {
       event: null,
+      userIds: [],
+      userMap: {},
     };
   },
   props: {
@@ -200,46 +202,84 @@ export default {
     this.updateEvent();
   },
   methods: {
-    async getUserInfo(user_id) {
-      let resp = await fetch("/user/".concat(user_id));
+    async fetchUserInfo(userId) {
+      let resp = await fetch("/user/".concat(userId));
       if (!resp.ok) {
-        console.error("Http error ${resp.status} getting user ${user_id}.");
+        console.error("Http error ${resp.status} getting user ${userId}.");
       }
       return await resp.json();
     },
 
+    getUserData(userId) {
+      const userObj =
+        userId in this.userMap
+          ? this.userMap[userId]
+          : { username: "", avatar_url: "" };
+      return userObj;
+    },
+
     async updateEvent() {
-      this.event_id = this.$route.params.id;
+      const eventId = this.$route.params.id;
+      let self = this;
       try {
-        let resp = await fetch("/event/" + this.event_id, {
+        let resp = await fetch("/event/" + eventId, {
           redirect: "error",
         });
         let data = await resp.json();
 
-        await Promise.all(
-          data.Packages.map(async (p) => {
-            p.Commander = await this.getUserInfo(p.CommanderId);
-            return Promise.all(
-              p.Flights.map(async (flight) =>
-                Promise.all(
-                  flight.Slots.map(async (slot) =>
-                    Promise.all(
-                      slot.Players.map(async (player) => {
-                        let info = await this.getUserInfo(player.PlayerId);
-                        player.User = info;
-                        return player;
-                      })
-                    )
-                  )
-                )
-              )
-            );
-          })
-        );
+        ////////////////////////////////////////////////////////////
+        // Iterate through the event data. Returns an array of all
+        // user ids found in the event.
+        ////////////////////////////////////////////////////////////
+        const findAllUsersInEvent = function () {
+          let userIds = [];
 
-        console.log("Data is first:");
-        console.log(data);
+          const addUserId = function (userId) {
+            const notAlreadyStored = !userIds.includes(userId);
+            const notEmpty = userId != "";
+            if (notEmpty && notAlreadyStored) {
+              userIds.push(userId);
+            }
+          };
+          for (const controller of data.Controllers) {
+            for (const slot of controller.Slots) {
+              for (const player of slot.Players) {
+                addUserId(player.PlayerId);
+              }
+            }
+          }
+          for (const pkg of data.Packages) {
+            userIds.push(pkg.CommanderId);
+            for (const flight of pkg.Flights) {
+              for (const slot of flight.Slots) {
+                for (const player of slot.Players) {
+                  addUserId(player.PlayerId);
+                }
+              }
+            }
+          }
+          return userIds;
+        };
 
+        ////////////////////////////////////////////////////////////
+        // Fetch all relevant user info data in parallel using
+        // async io
+        ////////////////////////////////////////////////////////////
+        const makeUserMap = async function (userIds) {
+          const users = await Promise.all(
+            userIds.map((uid) => self.fetchUserInfo(uid))
+          );
+
+          return Object.fromEntries(
+            self.userIds.map((uid, idx) => [uid, users[idx]])
+          );
+        };
+
+        ////////////////////////////////////////////////////////////
+        // Rearrange the slot structure to contain player info for
+        // each slot. This makes rendering the signup table much
+        // easier.
+        ////////////////////////////////////////////////////////////
         const flattenSlots = function (slots) {
           let new_slots = [];
           for (let slot of slots) {
@@ -249,12 +289,11 @@ export default {
             for (let player of players) {
               const role = player.Type ? player.Type : "Pilot";
               const slot_name = 0 == idx ? slot.SlotName : "";
-              const user = player.User ? player.User : {};
               new_slots.push({
+                PlayerId: player.PlayerId,
                 SlotName: slot_name,
                 Type: role,
                 Remarks: player.Remarks,
-                User: user,
               });
               idx++;
             }
@@ -262,22 +301,23 @@ export default {
           return new_slots;
         };
 
+        this.userIds = findAllUsersInEvent(data);
+
         for (let pkg of data.Packages) {
           for (let flight of pkg.Flights) {
             flight.Slots = flattenSlots(flight.Slots);
           }
         }
-        console.log("and after transformation:");
-        console.log(data);
 
         this.event = data;
+        this.userMap = await makeUserMap(this.userIds);
       } catch (err) {
         console.log(err);
         console.log("ERROR getting event");
       }
     },
     formatDate(date_iso) {
-      var dt = DateTime.fromISO(date_iso);
+      const dt = DateTime.fromISO(date_iso);
       return dt.toLocaleString(DateTime.DATETIME_FULL);
     },
   },
