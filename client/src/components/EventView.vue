@@ -36,63 +36,16 @@
           </b-col>
         </b-row>
         <template v-if="event">
-          <b-row
-            v-for="pkg in event.Packages"
-            :key="pkg.Identifier"
-            align-v="center"
-          >
-            <div style="width: 100%">
-              <table class="pkgform">
-                <tr>
-                  <td>
-                    <b-button
-                      variant="light"
-                      size="xs"
-                      v-b-toggle.collapse-pkg
-                      class="btn-xs"
-                    >
-                      <b-icon
-                        icon="arrow-90deg-left"
-                        scale="0.7"
-                        rotate="180"
-                        aria-hidden="true"
-                      >
-                      </b-icon>
-                    </b-button>
-                  </td>
-                  <td><b>Package</b></td>
-                  <td class="bg-light editable">{{ pkg.Identifier }}</td>
-                  <td><b>Commander:</b></td>
-                  <td class="bg-light editable">
-                    <b-avatar
-                      :src="getUserData(pkg.CommanderId).avatar_url"
-                      size="1.5em"
-                    ></b-avatar>
-                    {{ getUserData(pkg.CommanderId).username }}
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div
-              style="margin-left: 1em"
-              v-for="flight in pkg.Flights"
-              :key="flight.FlightName"
-            >
-              <b-collapse visible id="collapse-pkg">
+          <b-row align-v="center">
+            <div v-for="pkg in event.Packages" :key="pkg.Identifier">
+              <div style="width: 100%">
                 <table class="pkgform">
-                  <tr>
-                    <th></th>
-                    <th>Flight</th>
-                    <th>Tasking</th>
-                    <th>Airframe</th>
-                    <th>Base</th>
-                  </tr>
                   <tr>
                     <td>
                       <b-button
                         variant="light"
                         size="xs"
-                        v-b-toggle.collapse-flight
+                        v-b-toggle.collapse-pkg
                         class="btn-xs"
                       >
                         <b-icon
@@ -104,40 +57,109 @@
                         </b-icon>
                       </b-button>
                     </td>
-                    <td class="bg-light editable">{{ flight.FlightName }}</td>
-                    <td class="bg-light editable">{{ flight.Tasking }}</td>
-                    <td class="bg-light editable">{{ flight.Airframe }}</td>
-                    <td v-if="flight.Airbase" class="bg-light editable">
-                      {{ flight.Airbase }}
+                    <td><b>Package</b></td>
+                    <td class="bg-light editable">{{ pkg.Identifier }}</td>
+                    <td><b>Commander:</b></td>
+                    <td class="bg-light editable">
+                      <b-avatar
+                        badge
+                        :src="getUserData(pkg.CommanderId).avatar_url"
+                        size="1.5em"
+                        ><template v-slot:badge class="badge-transparent">
+                          <img
+                            src="static/bird.png"
+                            style="width: 2.5em"
+                          /> </template
+                      ></b-avatar>
+                      {{ getUserData(pkg.CommanderId).username }}
                     </td>
                   </tr>
                 </table>
-                <b-collapse visible id="collapse-flight">
-                  <table class="pkgform" style="width: 100%; margin-left: 2em">
+              </div>
+              <div
+                style="margin-left: 1em"
+                v-for="flight in pkg.Flights"
+                :key="flight.FlightName"
+              >
+                <b-collapse visible id="collapse-pkg">
+                  <table class="pkgform">
                     <tr>
-                      <th>Slot</th>
-                      <th>Role</th>
-                      <th>Player</th>
-                      <th>Remarks</th>
+                      <th></th>
+                      <th>Flight</th>
+                      <th>Tasking</th>
+                      <th>Airframe</th>
+                      <th>Base</th>
                     </tr>
-                    <tr v-for="slot in flight.Slots" :key="slot.SlotName">
-                      <td class="bg-light editable">{{ slot.SlotName }}</td>
-                      <td class="bg-light editable">{{ slot.Type }}</td>
-                      <td class="bg-light editable" v-if="slot.PlayerId">
-                        <b-avatar
-                          :src="getUserData(slot.PlayerId).avatar_url"
-                          size="1.5em"
-                        ></b-avatar>
-                        {{ getUserData(slot.PlayerId).username }}
+                    <tr>
+                      <td>
+                        <b-button
+                          variant="light"
+                          size="xs"
+                          v-b-toggle.collapse-flight
+                          class="btn-xs"
+                        >
+                          <b-icon
+                            icon="arrow-90deg-left"
+                            scale="0.7"
+                            rotate="180"
+                            aria-hidden="true"
+                          >
+                          </b-icon>
+                        </b-button>
                       </td>
-                      <td v-else></td>
-                      <td class="bg-light editable">
-                        {{ slot.Remarks }}
+                      <td class="bg-light editable">{{ flight.FlightName }}</td>
+                      <td class="bg-light editable">{{ flight.Tasking }}</td>
+                      <td class="bg-light editable">{{ flight.Airframe }}</td>
+                      <td v-if="flight.Airbase" class="bg-light editable">
+                        {{ flight.Airbase }}
                       </td>
                     </tr>
                   </table>
+                  <b-collapse visible id="collapse-flight">
+                    <table
+                      class="pkgform"
+                      style="width: 100%; margin-left: 2em"
+                    >
+                      <tr>
+                        <th>Slot</th>
+                        <th>Role</th>
+                        <th>Player</th>
+                        <th>Remarks</th>
+                      </tr>
+                      <tr v-for="slot in flight.Slots" :key="slot.SlotName">
+                        <td class="bg-light editable">{{ slot.SlotName }}</td>
+                        <td class="bg-light editable">{{ slot.Type }}</td>
+                        <td class="bg-light editable" v-if="slot.PlayerId">
+                          <template v-if="isPackageLead(pkg, slot.PlayerId)">
+                            <b-avatar
+                              badge
+                              badge-primary
+                              :src="getUserData(slot.PlayerId).avatar_url"
+                              size="1.5em"
+                              ><template v-slot:badge class="badge-transparent">
+                                <img
+                                  src="static/bird.png"
+                                  style="width: 2.5em"
+                                /> </template
+                            ></b-avatar>
+                          </template>
+                          <template v-else>
+                            <b-avatar
+                              :src="getUserData(slot.PlayerId).avatar_url"
+                              size="1.5em"
+                            ></b-avatar>
+                          </template>
+                          {{ getUserData(slot.PlayerId).username }}
+                        </td>
+                        <td v-else></td>
+                        <td class="bg-light editable">
+                          {{ slot.Remarks }}
+                        </td>
+                      </tr>
+                    </table>
+                  </b-collapse>
                 </b-collapse>
-              </b-collapse>
+              </div>
             </div>
           </b-row>
         </template>
@@ -170,6 +192,10 @@ table.pkgform {
 
 td.indent {
   padding-left: 0.8em;
+}
+
+.badge-primary {
+  background-color: transparent;
 }
 </style>
 
@@ -208,6 +234,10 @@ export default {
         console.error("Http error ${resp.status} getting user ${userId}.");
       }
       return await resp.json();
+    },
+
+    isPackageLead(pkg, userId) {
+      return pkg.CommanderId === userId;
     },
 
     getUserData(userId) {
