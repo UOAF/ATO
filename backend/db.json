@@ -7,20 +7,11 @@
       "StartTime": "2022-04-02T18:00:00.000Z",
       "EndTime": "2022-04-02T22:00:00.000Z",
       "Creator": "106225038004371456",
-      "Controllers": [
+      "ControllerSlots": [
         {
-          "Type": "ATC",
-          "Slots": [
-            {
-              "SlotName": "Ramat David Tower",
-              "Players": [
-                {
-                  "PlayerId": "106225038004371456",
-                  "Remarks": "Gonna crash all you fuckers"
-                }
-              ]
-            }
-          ]
+          "SlotName": "Ramat David Tower",
+          "PlayerId": "106225038004371456",
+          "Remarks": "Gonna crash all you fuckers"
         }
       ],
       "Packages": [
@@ -86,20 +77,11 @@
       "StartTime": "2022-04-14T18:00:00.000Z",
       "EndTime": "2022-04-14T22:00:00.000Z",
       "Creator": "106225038004371456",
-      "Controllers": [
+      "ControllerSlots": [
         {
-          "Type": "ATC",
-          "Slots": [
-            {
-              "SlotName": "Ramat David Tower",
-              "Players": [
-                {
-                  "PlayerId": "106225038004371456",
-                  "Remarks": "Gonna crash all you fuckers"
-                }
-              ]
-            }
-          ]
+          "SlotName": "Ramat David Tower",
+          "PlayerId": "106225038004371456",
+          "Remarks": "Gonna crash all you fuckers"
         }
       ],
       "Packages": [
@@ -165,20 +147,11 @@
       "StartTime": "2022-04-21T18:00:00.000Z",
       "EndTime": "2022-04-21T22:00:00.000Z",
       "Creator": "106225038004371456",
-      "Controllers": [
+      "ControllerSlots": [
         {
-          "Type": "ATC",
-          "Slots": [
-            {
-              "SlotName": "Ramat David Tower",
-              "Players": [
-                {
-                  "PlayerId": "106225038004371456",
-                  "Remarks": "Gonna crash all you fuckers"
-                }
-              ]
-            }
-          ]
+          "SlotName": "Ramat David Tower",
+          "PlayerId": "106225038004371456",
+          "Remarks": "Gonna crash all you fuckers"
         }
       ],
       "Packages": [
@@ -244,20 +217,11 @@
       "StartTime": "2022-04-28T18:00:00.000Z",
       "EndTime": "2022-04-28T22:00:00.000Z",
       "Creator": "106225038004371456",
-      "Controllers": [
+      "ControllerSlots": [
         {
-          "Type": "ATC",
-          "Slots": [
-            {
-              "SlotName": "Ramat David Tower",
-              "Players": [
-                {
-                  "PlayerId": "106225038004371456",
-                  "Remarks": "Gonna crash all you fuckers"
-                }
-              ]
-            }
-          ]
+          "SlotName": "Ramat David Tower",
+          "PlayerId": "229446416701980682",
+          "Remarks": "Gonna crash all you fuckers"
         }
       ],
       "Packages": [
@@ -323,20 +287,11 @@
       "StartTime": "2022-05-05T18:00:00.000Z",
       "EndTime": "2022-05-05T22:00:00.000Z",
       "Creator": "106225038004371456",
-      "Controllers": [
+      "ControllerSlots": [
         {
-          "Type": "ATC",
-          "Slots": [
-            {
-              "SlotName": "Ramat David Tower",
-              "Players": [
-                {
-                  "PlayerId": "106225038004371456",
-                  "Remarks": "Gonna crash all you fuckers"
-                }
-              ]
-            }
-          ]
+          "SlotName": "Ramat David Tower",
+          "PlayerId": "106225038004371456",
+          "Remarks": "Gonna crash all you fuckers"
         }
       ],
       "Packages": [
